@@ -2,15 +2,19 @@
 #define __ISPRIMEFUNCTION_H
 
 bool isPrimeInteger(int pTest) {
-    bool isPrime = true;
-
-    for (int i = 2; i < pTest; i++) {
-        if (pTest % i == 0) {
-            isPrime = false;
-            break;
-        }
-    }
-    return isPrime;
+	if (pTest == 2) {
+		return true;
+	}
+	else if (pTest%2==0 or pTest < 2) {
+		return false;
+	}
+	else {
+		for (int i = 3; i*i <= pTest; i+=2) {
+			if (pTest % i == 0) {
+				return false;
+			}
+		}
+	}
+	return true;
 }
-
 #endif
