@@ -7,6 +7,7 @@ Student get_student_struct_data() {
     Student student;
 
     string name;
+
     cout << "Enter name: " << endl;
     cin >> name;
     student.setName(name);
@@ -17,11 +18,28 @@ Student get_student_struct_data() {
     cout << "Enter final: " << endl;
     cin >> student.final ;
 
-    cout << "Enter a score or ^D for exit (no scores): " << endl;
+    int countGrades;
     int score;
-    while (cin >> score) {
-        student.hw_grades.push_back(score);
-        cout << "Enter another score or ^D for exit: " << endl;
+    cout << "How many homework grades would you like to enter for this student? " << endl;
+    if(!(cin >> countGrades)){ 
+        cout << "Invalid input, terminating."; 
+        countGrades = 0;
+        cin.clear();
+        cin.ignore(9999, '\n');
+    }
+    else{
+        for(int i = 1; i <= countGrades; i++){
+            cout << "Input homework score #" << i << ": " << endl;
+            if(cin >> score) {
+                student.hw_grades.push_back(score);
+            }
+            else{
+                cout << "Invalid input. Try again." << endl;
+                cin.clear();
+                cin.ignore(9999, '\n');
+                i--;
+            }
+        }
     }
 
     return student;
