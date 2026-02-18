@@ -19,9 +19,6 @@ Student::Student(string _name, int _number_of_homeworks) {
     name = _name;
     number_of_homeworks = _number_of_homeworks;
     home_work_scores = new int[number_of_homeworks];
-       for (int i=0; i < number_of_homeworks; i++) {
-        home_work_scores[i] = student.home_work_scores[i];
-    }
 }
 
 Student::~Student() {
