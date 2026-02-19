@@ -1,52 +1,39 @@
 #include <iostream>
-
 #include <cmath>
-
+#include "func.h"
 using namespace std;
 
-
-int32_t pseudoRamdom(int limit) {
-    
-    int value = rand() % limit;
-    return value;
-}
-
-
-void fisherYates(int *array, int totalElements, int (*randomFcn)(int limit)) {
-    for(int i=totalElements -1; i > 0 ; i--) {
-        int randomIndex = randomFcn(i);
-        int temp = array[i];
-        array[i] = array[randomIndex];
-        array[randomIndex] = temp;
-    }
-}
+void initialize_array(int* array, int size);
+bool non_neg_prefix_sum(int* x, int size);
+int32_t pseudoRandom(int limit);
+void fisherYates(int *array, int totalElements, int (*randomFcn)(int limit));
 
 int main() {
 
     srand(0);
-    int n{0};
 
+    int size;
     cout << "Enter an integer: " ;
-    cin >> n;
+    if(!(cin >> size)){ return 1;}
+    size *= 2;
+    
+    int trials;
+    cout << "How many trials would you like to run?: ";
+    if(!(cin >> trials)){ return 1;}
 
-    int array[2*n];
+    int *array = new int[size];
+    initialize_array(array, size);
 
-    for (int i=0 ; i < 2*n ; i++) {
-        if (i < n) {
-            array[i] = 1;
-        } else {
-            array[i] = -1;
+    int count = 0;
+    for(int i = 0; i < trials; i++){
+        fisherYates(array, size, pseudoRandom);
+        if(non_neg_prefix_sum(array, size)){
+            count++;
         }
     }
+    cout << "The number of lists that have a positive prefix sum is: " << count << endl;
+    cout << "Computed proportion of randomly permutated arrays of 1s and -1s of size " << size << " is: " << (double)count/trials << endl;
 
-    fisherYates(array, 2*n, pseudoRamdom);
-
-
-    for (int i = 0; i < 2*n; i++) {
-        cout << array[i] << " ";
-    }
-
-    cout << endl;
-
+    delete[] array;
     return 0;
 }
