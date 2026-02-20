@@ -1,5 +1,5 @@
 #ifndef _PYLONGOBJECT_H
-#define _YLONGOBJECT_H
+#define _PYLONGOBJECT_H
 
 #include <iostream>
 
@@ -12,13 +12,14 @@ struct PyLongObject {
     int numDigits;
     bool fitsInLongLong;
     long long iValue;
+    unsigned *digitsBase30;
 
     int getDigitN(int n) const;  // returns -1 on failure
     long long getSmallValue();
 
     bool operator==(const PyLongObject & other) const;
+    PyLongObject operator+(const PyLongObject & other) const;
 
-    unsigned *digitsBase30;
 };
 
 #endif
