@@ -27,7 +27,7 @@ TEST_CASE("Import File and Delegate Processing") {
     CHECK(results.size() > 0);
 
     cout << "\n ++++ Pairs Sorted by Closeness ++++ \n";
-    for (const auto& p : results) {
-        cout << "Vectors (" << p.indexA << ", " << p.indexB << ") Angle: " << p.distance << endl;
+    for (const auto& pairs : results) {
+        cout << "Vectors (" << pairs.indexA << ", " << pairs.indexB << ") Angle: " << pairs.distance << endl;
     }
 }
